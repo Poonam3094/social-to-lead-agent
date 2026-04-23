@@ -1,0 +1,6 @@
+venv/
+__pycache__/
+.env
+leads.csv
+test_gemini.py
+*.pyc
