@@ -105,7 +105,7 @@ social-to-lead-agent/
 # How to Run Locally
 
 pip install -r requirements.txt
-streamlit run app.py
+- streamlit run app.py
 
 Then open:
 http://localhost:8501
