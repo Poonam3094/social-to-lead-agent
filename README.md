@@ -110,12 +110,13 @@ streamlit run app.py
 Then open:
 http://localhost:8501
 
-Example Queries
-What plans do you offer?
-Tell me features of Pro plan
-What is your refund policy?
-Do you offer support?
-I want to buy Pro plan
+###  Example Queries
+- What plans do you offer?  
+- Tell me features of Pro plan  
+- What is your refund policy?  
+- Do you offer support?  
+- I want to buy Pro plan  
+
 
 # Architecture Explanation
 
