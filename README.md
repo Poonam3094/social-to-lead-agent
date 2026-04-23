@@ -4,94 +4,91 @@ A conversational AI sales assistant built for the ServiceHive Machine Learning /
 
 ---
 
-# Project Objective
+## Project Objective
 
 Build a real-world AI sales agent that can:
 
-- Answer customer queries intelligently
-- Retrieve business knowledge using RAG
-- Detect customer intent
-- Capture qualified leads
-- Manage multi-step conversations
-- Execute business actions
-- Export leads for follow-up
+* Answer customer queries intelligently
+* Retrieve business knowledge using RAG
+* Detect customer intent
+* Capture qualified leads
+* Manage multi-step conversations
+* Execute business actions
+* Export leads for follow-up
 
 ---
 
-# Key Features
+## Key Features
 
-## Conversational AI Support
+### Conversational AI Support
 
-Handles natural user queries such as:
+Handles user queries about:
 
-- Pricing
-- Plans
-- Features
-- Refund policy
-- Support availability
-- Purchase interest
+* Pricing
+* Plans
+* Features
+* Refund policy
+* Support availability
+* Purchase interest
 
-## Intent Detection
+### Intent Detection
 
-Detects and routes user intent including:
+Detects:
 
-- Pricing requests
-- Plan comparison
-- Feature questions
-- Refund policy queries
-- Support questions
-- Purchase intent
-- Negative / not interested intent
+* Pricing requests
+* Plan comparison
+* Feature questions
+* Refund/support queries
+* Purchase intent
+* Negative / not interested intent
 
-## RAG Knowledge Retrieval
+### RAG Knowledge Retrieval
 
 Uses a structured local knowledge base (`kb.json`) containing:
 
-- Product pricing
-- Feature details
-- Support policy
-- Refund policy
+* Product pricing
+* Feature details
+* Support policy
+* Refund policy
 
-Relevant information is retrieved dynamically to generate accurate responses.
+### Stateful Workflow
 
-## Stateful Workflow
+When purchase intent is detected:
 
-When buying intent is detected, the system starts a lead capture flow:
-
-1. Ask selected plan  
-2. Ask customer name  
-3. Validate email  
-4. Ask creator platform  
+1. Ask selected plan
+2. Ask customer name
+3. Validate email
+4. Ask creator platform
 5. Save lead
 
-## Tool Execution
+### Tool Execution
 
-Qualified leads are stored automatically into CSV format for business use.
+Stores captured leads into CSV for business follow-up.
 
-## Streamlit Dashboard
+### Streamlit Dashboard
 
 Includes:
 
-- Interactive chat interface
-- Lead analytics
-- CSV export
-- Clean deployment-ready UI
+* Chat interface
+* Lead analytics
+* CSV export
+* Deployment-ready UI
 
 ---
 
-# Tech Stack
+## Tech Stack
 
-- Python
-- Streamlit
-- Pandas
-- Google Gemini API
-- Python Dotenv
-- Regex Validation
-- Session State Management
+* Python
+* Streamlit
+* Pandas
+* Google Gemini API
+* Python Dotenv
+* Regex Validation
+* Session State Management
 
 ---
 
-# Project Structure
+## Project Structure
 
 ```text
 social-to-lead-agent/
@@ -100,155 +97,145 @@ social-to-lead-agent/
 │── kb.json
 │── requirements.txt
 │── README.md
-│── leads.csv
+│── .gitignore
 ```
-# How to Run Locally
 
+---
+
+## How to Run Locally
+
+```bash
 pip install -r requirements.txt
-- streamlit run app.py
+streamlit run app.py
+```
 
 Then open:
+
+```text
 http://localhost:8501
+```
 
-###  Example Queries
-- What plans do you offer?  
-- Tell me features of Pro plan  
-- What is your refund policy?  
-- Do you offer support?  
-- I want to buy Pro plan  
+---
 
+## Example Queries
 
-# Architecture Explanation
+* What plans do you offer?
+* Tell me features of Pro plan
+* What is your refund policy?
+* Do you offer support?
+* I want to buy Pro plan
 
-This project was designed as a lightweight real-world AI agent workflow inspired by graph-based orchestration systems such as LangGraph.
+---
 
-Instead of adding unnecessary framework complexity, I implemented the workflow directly in Python to keep the solution fast, readable, reliable, and easy to deploy.
+## Architecture Explanation
 
-The system follows an agent pipeline:
+This project uses a lightweight AI agent workflow inspired by LangGraph-style orchestration.
 
-User Query
-→ Intent Detection
-→ Knowledge Retrieval (RAG)
-→ Response Generation
-→ Lead Workflow States
-→ Tool Execution
+Flow:
 
-When a user sends a message, the system first detects intent such as:
+**User Query → Intent Detection → RAG Retrieval → Response → Lead Workflow → CSV Tool Action**
 
-- Pricing request
-- Plan comparison
-- Feature query
-- Refund/support question
-- Purchase intent
-- Negative intent
+Informational queries are answered using a local structured knowledge base (`kb.json`).
 
-For informational requests, the system retrieves relevant answers from the structured local knowledge base (kb.json). This acts as a lightweight Retrieval-Augmented Generation (RAG) system.
+When buying intent is detected, the system enters a guided multi-step lead capture workflow.
 
-When purchase intent is detected, the agent transitions into a guided multi-step lead workflow:
+Conversation state is managed through Streamlit Session State, preserving chat history and lead progress across interactions.
 
-- Collect name
-- Validate email
-- Collect creator platform
-- Save lead to CSV
+This makes the project a deployable business automation agent rather than a simple chatbot.
 
-State is maintained using Streamlit Session State, which preserves conversation memory and workflow progress across messages.
+---
 
-This creates a deployable business automation agent rather than only a chatbot.
+## Why LangGraph / AutoGen Approach
 
-# Why LangGraph / AutoGen Approach
+This solution is inspired by LangGraph concepts:
 
-This solution is inspired by LangGraph concepts such as:
+* Node-based transitions
+* Persistent state
+* Controlled routing
+* Memory across steps
 
-- Node-based workflow transitions
-- Persistent state management
-- Memory between steps
-- Controlled business logic routing
+For this assignment, a custom lightweight Python implementation was chosen to keep the system simple, fast, and easy to deploy.
 
-Because the assignment scope was focused and time-limited, I implemented a custom lightweight state machine directly in Python instead of introducing additional framework overhead.
+For larger systems, LangGraph / AutoGen would help with:
 
-For larger production systems, LangGraph or AutoGen would be excellent choices for:
+* Multi-agent workflows
+* Human approvals
+* Parallel tasks
+* Advanced tool orchestration
 
-- Multi-agent collaboration
-- Human-in-loop approval systems
-- Advanced memory systems
-- External tool orchestration
-- Parallel task execution
+---
 
-# How State is Managed
+## How State is Managed
 
-The application uses st.session_state in Streamlit.
+Using `st.session_state`, the app stores:
 
-This stores:
+* Chat history
+* Current lead step
+* Selected plan
+* Name
+* Email
+* Platform
 
-- Chat history
-- Current lead capture step
-- Selected plan
-- User name
-- User email
-- User platform
-- Completed leads
+This ensures conversation continuity.
 
-This ensures users can continue the conversation naturally while preserving progress in the workflow.
+---
 
-# WhatsApp Deployment Using Webhooks
+## WhatsApp Deployment Using Webhooks
 
-To deploy this agent on WhatsApp, I would integrate it using WhatsApp Business API (Meta Cloud API) or Twilio.
+Production deployment can be done using WhatsApp Business API or Twilio.
 
-Deployment flow:
+Flow:
 
-- User sends WhatsApp message
-- WhatsApp forwards message to webhook endpoint
-- Backend server (FastAPI / Flask) receives request
-- Request is passed to agent logic
-- Agent processes:
-- Intent
-- State
-- Knowledge retrieval
-- Lead workflow
-- Response sent back via WhatsApp API
-- Leads stored in database / CSV / CRM
+1. User sends WhatsApp message
+2. Webhook receives message
+3. Backend sends input to agent
+4. Agent processes intent/state/RAG
+5. Response sent back via API
+6. Leads saved to CRM/database
 
-Each phone number would act as a unique session ID to maintain separate user state.
+Each phone number acts as a unique session ID.
 
-This would make the solution production-ready for lead generation and customer support.
+---
 
-# Deliverables Checklist
+## Deliverables Checklist
 
-✅ Agent logic
-✅ RAG pipeline
-✅ Intent detection
-✅ Tool execution
-✅ requirements.txt
-✅ Local setup guide
-✅ Architecture explanation
-✅ State management explanation
-✅ WhatsApp deployment plan
+* ✅ Agent logic
+* ✅ RAG pipeline
+* ✅ Intent detection
+* ✅ Tool execution
+* ✅ requirements.txt
+* ✅ Local setup guide
+* ✅ Architecture explanation
+* ✅ State management explanation
+* ✅ WhatsApp deployment plan
 
-# Why This Is More Than a Chatbot
+---
 
-This system does more than generate replies.
+## Why This Is More Than a Chatbot
 
-It can:
+This system can:
 
-- Understand intent
-- Retrieve structured knowledge
-- Maintain workflow state
-- Collect qualified leads
-- Validate user inputs
-- Execute business actions
-- Store outputs
+* Understand intent
+* Retrieve structured knowledge
+* Manage workflows
+* Capture leads
+* Validate inputs
+* Execute actions
 
 That makes it an AI Agent.
 
-# Future Improvements
+---
 
-- Vector database RAG
-- CRM integrations
-- Live WhatsApp deployment
-- Human handoff mode
-- Multi-language support
-- Analytics dashboard
-- Admin panel
+## Future Improvements
 
-# Author
-Poonam Saini
+* Vector DB RAG
+* CRM Integration
+* Live WhatsApp deployment
+* Multi-language support
+* Analytics dashboard
+
+---
+
+## Author
+
+**Poonam Saini**
