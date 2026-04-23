@@ -135,21 +135,21 @@ User Query
 
 When a user sends a message, the system first detects intent such as:
 
-Pricing request
-Plan comparison
-Feature query
-Refund/support question
-Purchase intent
-Negative intent
+- Pricing request
+- Plan comparison
+- Feature query
+- Refund/support question
+- Purchase intent
+- Negative intent
 
 For informational requests, the system retrieves relevant answers from the structured local knowledge base (kb.json). This acts as a lightweight Retrieval-Augmented Generation (RAG) system.
 
 When purchase intent is detected, the agent transitions into a guided multi-step lead workflow:
 
-Collect name
-Validate email
-Collect creator platform
-Save lead to CSV
+- Collect name
+- Validate email
+- Collect creator platform
+- Save lead to CSV
 
 State is maintained using Streamlit Session State, which preserves conversation memory and workflow progress across messages.
 
@@ -159,20 +159,20 @@ This creates a deployable business automation agent rather than only a chatbot.
 
 This solution is inspired by LangGraph concepts such as:
 
-Node-based workflow transitions
-Persistent state management
-Memory between steps
-Controlled business logic routing
+- Node-based workflow transitions
+- Persistent state management
+- Memory between steps
+- Controlled business logic routing
 
 Because the assignment scope was focused and time-limited, I implemented a custom lightweight state machine directly in Python instead of introducing additional framework overhead.
 
 For larger production systems, LangGraph or AutoGen would be excellent choices for:
 
-Multi-agent collaboration
-Human-in-loop approval systems
-Advanced memory systems
-External tool orchestration
-Parallel task execution
+- Multi-agent collaboration
+- Human-in-loop approval systems
+- Advanced memory systems
+- External tool orchestration
+- Parallel task execution
 
 # How State is Managed
 
@@ -180,13 +180,13 @@ The application uses st.session_state in Streamlit.
 
 This stores:
 
-Chat history
-Current lead capture step
-Selected plan
-User name
-User email
-User platform
-Completed leads
+- Chat history
+- Current lead capture step
+- Selected plan
+- User name
+- User email
+- User platform
+- Completed leads
 
 This ensures users can continue the conversation naturally while preserving progress in the workflow.
 
@@ -196,17 +196,17 @@ To deploy this agent on WhatsApp, I would integrate it using WhatsApp Business A
 
 Deployment flow:
 
-User sends WhatsApp message
-WhatsApp forwards message to webhook endpoint
-Backend server (FastAPI / Flask) receives request
-Request is passed to agent logic
-Agent processes:
-Intent
-State
-Knowledge retrieval
-Lead workflow
-Response sent back via WhatsApp API
-Leads stored in database / CSV / CRM
+- User sends WhatsApp message
+- WhatsApp forwards message to webhook endpoint
+- Backend server (FastAPI / Flask) receives request
+- Request is passed to agent logic
+- Agent processes:
+- Intent
+- State
+- Knowledge retrieval
+- Lead workflow
+- Response sent back via WhatsApp API
+- Leads stored in database / CSV / CRM
 
 Each phone number would act as a unique session ID to maintain separate user state.
 
@@ -230,25 +230,25 @@ This system does more than generate replies.
 
 It can:
 
-Understand intent
-Retrieve structured knowledge
-Maintain workflow state
-Collect qualified leads
-Validate user inputs
-Execute business actions
-Store outputs
+- Understand intent
+- Retrieve structured knowledge
+- Maintain workflow state
+- Collect qualified leads
+- Validate user inputs
+- Execute business actions
+- Store outputs
 
 That makes it an AI Agent.
 
 # Future Improvements
 
-Vector database RAG
-CRM integrations
-Live WhatsApp deployment
-Human handoff mode
-Multi-language support
-Analytics dashboard
-Admin panel
+- Vector database RAG
+- CRM integrations
+- Live WhatsApp deployment
+- Human handoff mode
+- Multi-language support
+- Analytics dashboard
+- Admin panel
 
 # Author
 Poonam Saini
